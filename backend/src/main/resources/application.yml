@@ -1,0 +1,35 @@
+server:
+  port: 8103
+  undertow:
+    worker-threads: 60
+
+logging:
+  pattern:
+    console: "[%d] : %-5level : %msg%n"
+
+management:
+  security:
+    enabled: false
+  endpoint:
+    health:
+      show-details: "ALWAYS"
+    prometheus:
+      enabled: true
+    metrics:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: "/"
+      path-mapping:
+        metrics: "/springmetrics"
+        prometheus: "/metrics"
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
