@@ -18,7 +18,7 @@ class PopulationService {
   fun count() = PopulationAmount(population.toString())
   fun pendingBabyRequests(): CurrentBabyRequests = babyRequests
   fun processNewBabyRequest(request: IncomingBabyRequest): Boolean {
-    val isGoodName = request.name.none { it in ILLEGAL_CHARS }
+    val isGoodName = request.name.none { it in ILLEGAL_CHARS } && request.name.isNotBlank()
     if (isGoodName) babyRequests.add(request)
     return isGoodName
   }

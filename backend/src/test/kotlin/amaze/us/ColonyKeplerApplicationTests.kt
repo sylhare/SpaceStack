@@ -78,6 +78,13 @@ internal class ColonyKeplerApplicationTests {
   }
 
   @Test
+  fun postBabyRequestBlankNameTest() {
+    val result = addNewBabyRequest("   ")
+
+    Assertions.assertEquals(HttpStatus.BAD_REQUEST, result.statusCode)
+  }
+
+  @Test
   fun babyRequestApprovalTest() {
     addNewBabyRequest("New Baby")
     val lastBabyRequest = testRestTemplate.exchange(
