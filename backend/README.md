@@ -2,10 +2,12 @@
 
 ## Setup
 
-It is using JDK11 as well as gradle 6.0.
+It is using JDK11 (openjdk version "11.0.2") as well as gradle 6.3.
 Fully developed in Kotlin.
 
 ### Build
+
+To build the project:
 
 ```bash
 ./gradlew clean build
@@ -13,7 +15,7 @@ Fully developed in Kotlin.
 
 ### Run tests
 
-Run the tests with coverage report
+Run the tests with coverage report:
 
 ```bash
 ./gradlew clean test jacocoTestReport
@@ -49,3 +51,5 @@ You can start the app and check the swagger at [localhost:8103/swagger-ui.html](
 ![](./resources/swagger.png)
 
 You can even try the app API from there.
+On the operation side, you can have access to the app auto generated metrics by reaching [ocalhost:9100/actuator/metrics](http://localhost:9100/actuator/metrics).
+And you can have the health of the app by reaching [localhost:8103/health](http://localhost:8103/health)

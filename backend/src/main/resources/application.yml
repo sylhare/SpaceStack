@@ -8,23 +8,21 @@ logging:
     console: "[%d] : %-5level : %msg%n"
 
 management:
-  security:
-    enabled: false
+  server:
+    port: 9100
   endpoint:
-    health:
-      show-details: "ALWAYS"
-    prometheus:
-      enabled: true
     metrics:
+      enabled: true
+    prometheus:
       enabled: true
   endpoints:
     web:
       exposure:
-        include: "*"
-      base-path: "/"
-      path-mapping:
-        metrics: "/springmetrics"
-        prometheus: "/metrics"
+        include: '*'
+  metrics:
+    export:
+      prometheus:
+        enabled: true
 
 spring:
   main:
