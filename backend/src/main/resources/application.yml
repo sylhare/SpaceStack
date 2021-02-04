@@ -8,15 +8,16 @@ logging:
     console: "[%d] : %-5level : %msg%n"
 
 management:
-  server:
-    port: 9100
   endpoint:
+    health:
+      show-details: "ALWAYS"
     metrics:
       enabled: true
     prometheus:
       enabled: true
   endpoints:
     web:
+      base-path: "/"
       exposure:
         include: '*'
   metrics:

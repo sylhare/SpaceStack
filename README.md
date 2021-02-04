@@ -1,5 +1,7 @@
 # SpaceStack
 
+![Frontend CI](https://github.com/sylhare/SpaceStack/workflows/Frontend%20CI/badge.svg) ![Backend CI](https://github.com/sylhare/SpaceStack/workflows/Backend%20CI/badge.svg)
+
 ## Intro
 
 This is a full stack application prototype to manage a Space Colony.

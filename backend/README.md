@@ -51,5 +51,5 @@ You can start the app and check the swagger at [localhost:8103/swagger-ui.html](
 ![](./resources/swagger.png)
 
 You can even try the app API from there.
-On the operation side, you can have access to the app auto generated metrics by reaching [ocalhost:9100/actuator/metrics](http://localhost:9100/actuator/metrics).
+On the operation side, you can have access to the app auto generated metrics by reaching [localhost:8103/metrics](http://localhost:9100/actuator/metrics).
 And you can have the health of the app by reaching [localhost:8103/health](http://localhost:8103/health)
