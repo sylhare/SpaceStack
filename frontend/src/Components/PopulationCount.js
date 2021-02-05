@@ -21,9 +21,8 @@ export default function PopulationCount() {
     return () => { unmounted = true };
   }, []);
 
-  if (error) {
-    return <div className='PopulationCount'>Error : {error.message}</div>;
-  } else {
-    return <div className='PopulationCount'><p>The population counter:</p><h3>{items.amount}</h3></div>;
-  }
+  return (<div className='PopulationCount'><p>The population counter:</p>
+    <h3>{error ? "N/A" : items.amount}</h3>
+  </div>);
+
 }

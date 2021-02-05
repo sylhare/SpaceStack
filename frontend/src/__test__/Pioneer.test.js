@@ -41,9 +41,9 @@ test('handles server error', async () => {
 
   const {getByText} = render(<Pioneers/>);
 
-  await waitFor(() => getByText(/Error/i));
+  await waitFor(() => getByText('N/A'));
 
-  expect(getByText(/Error/i)).toBeTruthy()
+  expect(getByText('N/A')).toBeTruthy()
 });
 
 test('Error snackbar on when server is down while requesting baby', async () => {

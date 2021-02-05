@@ -1,5 +1,7 @@
 # Kepler colony UI
 
+![Frontend CI](https://github.com/sylhare/SpaceStack/workflows/Frontend%20CI/badge.svg)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 This frontend works with the [backend](../backend) and allow to:
 

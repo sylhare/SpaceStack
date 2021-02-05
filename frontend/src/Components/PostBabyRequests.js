@@ -11,7 +11,7 @@ export default class PostBabyRequests extends React.Component {
     this.state = {
       name: '',
       error: '',
-      snackbar:false,
+      snackbar: false,
       disabled: true
     };
   }
@@ -26,14 +26,14 @@ export default class PostBabyRequests extends React.Component {
       .then((response) => {
           if (response.status === 201) {
             this.sendSnackbar('You have submitted a baby request for ' + this.state.name);
-            this.setState({name: '', snackbar:true})
+            this.setState({name: '', snackbar: true});
             document.getElementById('post-request-form').reset();
           } else {
-            this.sendSnackbar('Your baby request for ' + this.state.name + 'did not work please try again');
+            this.sendSnackbar('Your baby request for ' + this.state.name + ' did not work please try again');
           }
         },
         (error) => {
-          this.sendSnackbar('There was an error with the server' + error);
+          this.sendSnackbar('There was an error with the server, ' + error);
         }
       )
 
@@ -42,7 +42,7 @@ export default class PostBabyRequests extends React.Component {
   nameChangeHandler = (event) => {
     event.preventDefault();
     const {value} = event.target;
-    const illegalCharacters = '0123456789+-*/\\|][{};:"?><,!@#$%^&'
+    const illegalCharacters = '0123456789+-*/\\|][{};:"?><,!@#$%^&';
     this.setState({name: value});
     if (value.trim().length <= 2 || value.split('').filter(c => !illegalCharacters.includes(c)).length !== value.length) {
       this.setState({error: 'Name must be at least 3 characters long, no trolling!', disabled: true})
@@ -77,7 +77,7 @@ export default class PostBabyRequests extends React.Component {
             {error !== '' && <span className='error'>{error}</span>}
           </div>
         </form>
-        <Snackbar ref = {this.snackbarRef} />
+        <Snackbar ref={this.snackbarRef}/>
       </div>
     );
   }
