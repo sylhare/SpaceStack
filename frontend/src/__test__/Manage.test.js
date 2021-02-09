@@ -1,7 +1,7 @@
 import React from 'react'
 import {rest} from 'msw'
 import {setupServer} from 'msw/node'
-import {render, waitFor, fireEvent, screen, act} from '@testing-library/react'
+import {render, waitFor, fireEvent, act} from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import Manage from '../Pages/Manage';
 

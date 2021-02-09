@@ -2,7 +2,7 @@ import React, {useEffect, useReducer, useState} from 'react';
 import axios from 'axios';
 
 
-const listReducer = (state, action) => {
+export const listReducer = (state, action) => {
   switch (action.type) {
     case 'REMOVE_ITEM':
       return {

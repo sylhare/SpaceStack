@@ -218,3 +218,47 @@ span.baby-name {
   from {bottom: 30px; opacity: 1;}
   to {bottom: 0; opacity: 0;}
 }
+
+.processed-requests {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 10px 10px 50px -5px rgba(0, 0, 0, 0.15);
+}
+
+.processed-requests thead tr {
+  background-color: #f7786b;
+  color: #ffffff;
+  text-align: left;
+}
+
+.processed-requests th,
+.processed-requests td {
+  padding: 12px 15px;
+}
+
+.processed-requests tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.processed-requests tbody tr:nth-of-type(odd) {
+  background-color: #ffffff;
+}
+
+.processed-requests tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.processed-requests tbody tr:last-of-type {
+  border-bottom: 2px solid #f7786b;
+}
+
+.processed-requests tbody tr.active-row {
+  font-weight: bold;
+  color: #f7786b;
+}
+
+
+

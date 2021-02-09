@@ -20,4 +20,9 @@ context('Kepler Colony Tests', () => {
     cy.get('.content').contains('New requests')
   });
 
+  it('can go to Audit page', () => {
+    cy.get('[aria-label="Audit"]').click();
+    cy.get('.content').contains('Processed requests')
+  });
+
 });
