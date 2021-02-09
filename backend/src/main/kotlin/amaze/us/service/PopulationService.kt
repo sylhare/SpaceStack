@@ -2,7 +2,7 @@ package amaze.us.service
 
 import amaze.us.db.toBabyRequest
 import amaze.us.db.toBabyUpdate
-import amaze.us.model.CurrentBabyRequests
+import amaze.us.model.ListOfBabyRequest
 import amaze.us.model.Decision
 import amaze.us.model.Decision.Companion.APPROVED
 import amaze.us.model.Decision.Companion.DENIED
@@ -23,9 +23,11 @@ class PopulationService {
 
   private var population = 2000
 
-  fun count() = PopulationAmount((population + babyRequestService.getRequests().filter { it.status == APPROVED }.size).toString())
+  fun count() = PopulationAmount((population + ListOfBabyRequest.approvedCount(babyRequestService.getRequests())).toString())
 
-  fun pendingBabyRequests(): CurrentBabyRequests = CurrentBabyRequests(babyRequestService.getRequests())
+  fun pendingBabyRequests(): ListOfBabyRequest = ListOfBabyRequest.pending(babyRequestService.getRequests())
+
+  fun processedBabyRequests(): ListOfBabyRequest = ListOfBabyRequest.processed(babyRequestService.getRequests())
 
   fun processNewBabyRequest(request: IncomingBabyRequest): Boolean {
     val isGoodName = request.name.none { it in ILLEGAL_CHARS } && request.name.isNotBlank()

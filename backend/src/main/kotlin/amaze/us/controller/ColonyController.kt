@@ -1,7 +1,7 @@
 package amaze.us.controller
 
 import amaze.us.config.LOGGER
-import amaze.us.model.CurrentBabyRequests
+import amaze.us.model.ListOfBabyRequest
 import amaze.us.model.Decision
 import amaze.us.model.IncomingBabyRequest
 import amaze.us.model.PopulationAmount
@@ -30,13 +30,13 @@ class ColonyController {
     ResponseEntity(PopulationAmount(), HttpStatus.INTERNAL_SERVER_ERROR)
   }
 
-  @ApiOperation(value = "Get the list of pending baby requests", response = CurrentBabyRequests::class)
+  @ApiOperation(value = "Get the list of pending baby requests", response = ListOfBabyRequest::class)
   @GetMapping(value = ["/baby/request"], produces = ["application/json"])
   fun babyPendingRequests() = try {
     LOGGER.info("Retrieving baby requests")
     ResponseEntity(colonyHandlerService.babyRequests(), HttpStatus.OK)
   } catch (e: Exception) {
-    ResponseEntity(CurrentBabyRequests(), HttpStatus.INTERNAL_SERVER_ERROR)
+    ResponseEntity(ListOfBabyRequest(), HttpStatus.INTERNAL_SERVER_ERROR)
   }
 
   @ApiOperation(value = "Submit a baby request", response = IncomingBabyRequest::class)
@@ -51,6 +51,15 @@ class ColonyController {
     ResponseEntity("", if (colonyHandlerService.addBabyRequests(request)) HttpStatus.CREATED else HttpStatus.BAD_REQUEST)
   } catch (e: Exception) {
     ResponseEntity("", HttpStatus.INTERNAL_SERVER_ERROR)
+  }
+
+  @ApiOperation(value = "To review decision on baby requests", response = Decision::class)
+  @GetMapping(value = ["/baby/request/audit"])
+  internal fun babyRequestAudit() = try {
+    LOGGER.info("Audit requested")
+    ResponseEntity(colonyHandlerService.processedRequests(), HttpStatus.OK)
+  } catch (e: Exception) {
+      ResponseEntity(ListOfBabyRequest(), HttpStatus.INTERNAL_SERVER_ERROR)
   }
 
   @ApiOperation(value = "Decide on a baby request", response = Decision::class)

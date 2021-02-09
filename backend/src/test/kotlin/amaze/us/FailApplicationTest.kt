@@ -2,12 +2,11 @@ package amaze.us
 
 import amaze.us.mock.jsonEntity
 import amaze.us.mock.toJson
-import amaze.us.model.CurrentBabyRequests
+import amaze.us.model.ListOfBabyRequest
 import amaze.us.model.Decision
 import amaze.us.model.IncomingBabyRequest
 import amaze.us.model.PopulationAmount
 import amaze.us.service.ColonyHandlerService
-import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions
@@ -18,7 +17,6 @@ import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.context.annotation.Bean
-import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
@@ -44,6 +42,7 @@ internal class FailApplicationTest {
       every { colonyService.babyRequests() } throws RuntimeException()
       every { colonyService.addBabyRequests(any()) } throws RuntimeException()
       every { colonyService.processDecision(any(), any()) } throws RuntimeException()
+      every { colonyService.processedRequests() } throws RuntimeException()
       return colonyService
     }
   }
@@ -66,10 +65,10 @@ internal class FailApplicationTest {
         URI(applicationUrl() + "/v1/baby/request"),
         HttpMethod.GET,
         HttpEntity(""),
-        CurrentBabyRequests::class.java)
+        ListOfBabyRequest::class.java)
 
     Assertions.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, result.statusCode)
-    Assertions.assertEquals(CurrentBabyRequests(), result.body)
+    Assertions.assertEquals(ListOfBabyRequest(), result.body)
   }
 
   @Test
@@ -93,6 +92,19 @@ internal class FailApplicationTest {
         Void::class.java)
 
     Assertions.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, result.statusCode)
+  }
+
+
+  @Test
+  fun failToGetAuditBabyRequestsTest() {
+    val result = testRestTemplate.exchange(
+        URI(applicationUrl() + "/v1/baby/request/audit"),
+        HttpMethod.GET,
+        HttpEntity(""),
+        ListOfBabyRequest::class.java)
+
+    Assertions.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, result.statusCode)
+    Assertions.assertEquals(ListOfBabyRequest(), result.body)
   }
 
   private fun applicationUrl() = "http://localhost:$applicationPort"

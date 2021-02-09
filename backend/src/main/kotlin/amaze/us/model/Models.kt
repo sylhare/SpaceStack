@@ -1,6 +1,7 @@
 package amaze.us.model
 
 import amaze.us.db.BabyRequest
+import amaze.us.model.Decision.Companion.APPROVED
 import amaze.us.model.Decision.Companion.DENIED
 import amaze.us.model.Decision.Companion.NEW
 import java.util.*
@@ -27,18 +28,15 @@ data class Decision(val status: String, val decidedBy: String) {
   }
 }
 
-class CurrentBabyRequests {
-  var requests: List<BabyRequest>
-
-  constructor(requests: MutableList<BabyRequest>) {
-    this.requests = requests.filter { it.status == NEW }
-  }
+data class ListOfBabyRequest constructor(val requests: List<BabyRequest>) {
 
   constructor() : this(mutableListOf<BabyRequest>())
 
-  override fun hashCode() = requests.hashCode()
-  override fun equals(other: Any?) = this === other ||
-      other is CurrentBabyRequests && this.requests == other.requests
+  companion object {
+    fun pending(requests: MutableList<BabyRequest>) = ListOfBabyRequest(requests.filter { it.status == NEW })
+    fun processed(requests: MutableList<BabyRequest>) = ListOfBabyRequest(requests.filter { it.decidedBy != "" })
+    fun approvedCount(requests: MutableList<BabyRequest>): Int = requests.filter { it.status == APPROVED }.size
+  }
 }
 
 

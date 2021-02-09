@@ -43,4 +43,12 @@ class BabyRequestServiceTest {
     every { mongoTemplate.findAll(BabyRequest::class.java) } returns defaultResponse
     assertEquals(1, populationService.pendingBabyRequests().requests.size)
   }
+
+  @Test
+  fun getProcessedRequestsTest() {
+    val defaultResponse = mutableListOf(BabyRequest("", "", APPROVED, 1L, "", "Decider"),
+        BabyRequest("", "", APPROVED), BabyRequest("", "", NEW))
+    every { mongoTemplate.findAll(BabyRequest::class.java) } returns defaultResponse
+    assertEquals(1, populationService.processedBabyRequests().requests.size)
+  }
 }

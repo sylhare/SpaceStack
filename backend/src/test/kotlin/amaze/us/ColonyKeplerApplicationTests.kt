@@ -2,7 +2,7 @@ package amaze.us
 
 import amaze.us.mock.jsonEntity
 import amaze.us.mock.toJson
-import amaze.us.model.CurrentBabyRequests
+import amaze.us.model.ListOfBabyRequest
 import amaze.us.model.Decision
 import amaze.us.model.IncomingBabyRequest
 import amaze.us.model.PopulationAmount
@@ -24,7 +24,6 @@ import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.context.support.TestPropertySourceUtils
 import org.testcontainers.containers.MongoDBContainer
-import org.testcontainers.utility.DockerImageName
 import java.net.URI
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -94,10 +93,10 @@ internal class ColonyKeplerApplicationTests {
         URI(applicationUrl() + "/v1/baby/request"),
         HttpMethod.GET,
         HttpEntity(""),
-        CurrentBabyRequests::class.java)
+        ListOfBabyRequest::class.java)
 
     Assertions.assertEquals(HttpStatus.OK, result.statusCode)
-    Assertions.assertEquals(CurrentBabyRequests(), result.body)
+    Assertions.assertEquals(ListOfBabyRequest(), result.body)
   }
 
   @Test
@@ -128,15 +127,24 @@ internal class ColonyKeplerApplicationTests {
         URI(applicationUrl() + "/v1/baby/request"),
         HttpMethod.GET,
         HttpEntity(""),
-        CurrentBabyRequests::class.java).body!!.requests.last()
+        ListOfBabyRequest::class.java).body!!.requests.last()
 
     val result = testRestTemplate.exchange(
         URI(applicationUrl() + "/v1/baby/request/${lastBabyRequest.id}"),
         HttpMethod.PUT,
-        jsonEntity(Decision("Approved", "").toJson()),
+        jsonEntity(Decision("Approved", "decider").toJson()),
         Void::class.java)
 
+    val decided = testRestTemplate.exchange(
+        URI(applicationUrl() + "/v1/baby/request/audit"),
+        HttpMethod.GET,
+        HttpEntity(""),
+        ListOfBabyRequest::class.java)
+
     Assertions.assertEquals(HttpStatus.OK, result.statusCode)
+    Assertions.assertEquals(HttpStatus.OK, decided.statusCode)
+    Assertions.assertEquals("decider", decided.body!!.requests.first().decidedBy)
+    Assertions.assertEquals(lastBabyRequest.id, decided.body!!.requests.first().id)
   }
 
   @Test
@@ -146,7 +154,7 @@ internal class ColonyKeplerApplicationTests {
         URI(applicationUrl() + "/v1/baby/request"),
         HttpMethod.GET,
         HttpEntity(""),
-        CurrentBabyRequests::class.java).body!!.requests.last()
+        ListOfBabyRequest::class.java).body!!.requests.last()
 
     val result = testRestTemplate.exchange(
         URI(applicationUrl() + "/v1/baby/request/${lastBabyRequest.id}"),
@@ -164,7 +172,7 @@ internal class ColonyKeplerApplicationTests {
         URI(applicationUrl() + "/v1/baby/request"),
         HttpMethod.GET,
         HttpEntity(""),
-        CurrentBabyRequests::class.java).body!!.requests.last()
+        ListOfBabyRequest::class.java).body!!.requests.last()
 
     val result = testRestTemplate.exchange(
         URI(applicationUrl() + "/v1/baby/request/${lastBabyRequest.id}"),
