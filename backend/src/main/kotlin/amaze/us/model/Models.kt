@@ -11,15 +11,11 @@ data class PopulationAmount(val amount: String) {
 }
 
 data class IncomingBabyRequest(val name: String, val author: String) {
-  constructor() : this("N/A", "")
+  constructor() : this("N/A", "Unknown")
 }
 
-data class ProcessingBabyRequest(val name: String, val id: String = UUID.randomUUID().toString(), val status: String = NEW, val author: String) {
-  constructor() : this("N/A", "null-${UUID.randomUUID()}", DENIED, "")
-}
-
-data class Decision(val status: String, val decidedBy: String) {
-  constructor() : this(DENIED, "")
+data class Decision(val status: String, val reviewer: String) {
+  constructor() : this(DENIED, "System")
 
   companion object {
     const val NEW = "new"
@@ -31,12 +27,6 @@ data class Decision(val status: String, val decidedBy: String) {
 data class ListOfBabyRequest constructor(val requests: List<BabyRequest>) {
 
   constructor() : this(mutableListOf<BabyRequest>())
-
-  companion object {
-    fun pending(requests: MutableList<BabyRequest>) = ListOfBabyRequest(requests.filter { it.status == NEW })
-    fun processed(requests: MutableList<BabyRequest>) = ListOfBabyRequest(requests.filter { it.decidedBy != "" })
-    fun approvedCount(requests: MutableList<BabyRequest>): Int = requests.filter { it.status == APPROVED }.size
-  }
 }
 
 

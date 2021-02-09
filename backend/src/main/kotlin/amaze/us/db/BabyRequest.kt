@@ -12,15 +12,15 @@ import java.util.*
 
 @Component
 @Document
-data class BabyRequest(@Id val id: String, val name: String = "", val status: String = DENIED,
-                       val timestamp: Long = Instant.now().toEpochMilli(), val author: String = "", val decidedBy: String = "") {
+data class BabyRequest(@Id val id: String, val name: String = "Unknown", val status: String = DENIED,
+                       val timestamp: Long = Instant.now().toEpochMilli(), val author: String = "Unknown", val reviewer: String = "Unknown") {
   constructor() : this(id = "")
 }
 
-data class BabyUpdate(val status: String = DENIED, val decidedBy: String = "")
+data class BabyUpdate(val status: String, val reviewer: String)
 
 val IncomingBabyRequest.toBabyRequest: BabyRequest
-  get() = BabyRequest(UUID.randomUUID().toString(), this.name, NEW, Instant.now().toEpochMilli(), "", "")
+  get() = BabyRequest(UUID.randomUUID().toString(), this.name, NEW, Instant.now().toEpochMilli(), this.author)
 
 val Decision.toBabyUpdate: BabyUpdate
-  get() = BabyUpdate(this.status, this.decidedBy)
+  get() = BabyUpdate(this.status.toLowerCase(), this.reviewer)

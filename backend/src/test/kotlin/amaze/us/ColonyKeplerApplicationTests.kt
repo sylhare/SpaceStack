@@ -2,9 +2,9 @@ package amaze.us
 
 import amaze.us.mock.jsonEntity
 import amaze.us.mock.toJson
-import amaze.us.model.ListOfBabyRequest
 import amaze.us.model.Decision
 import amaze.us.model.IncomingBabyRequest
+import amaze.us.model.ListOfBabyRequest
 import amaze.us.model.PopulationAmount
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions
@@ -59,7 +59,7 @@ internal class ColonyKeplerApplicationTests {
       override fun initialize(context: ConfigurableApplicationContext) {
         val port = mongoDBContainer.firstMappedPort
         mongoDBContainer.portBindings = listOf("$port:$port")
-        TestPropertySourceUtils.addInlinedPropertiesToEnvironment(context, "database.mongo.port=$port", "database.mongo.user=", "database.mongo.password=", "database.mongo.database=")
+        TestPropertySourceUtils.addInlinedPropertiesToEnvironment(context, "database.mongo.address=localhost", "database.mongo.port=$port", "database.mongo.user=", "database.mongo.password=")
       }
     }
   }
@@ -132,7 +132,7 @@ internal class ColonyKeplerApplicationTests {
     val result = testRestTemplate.exchange(
         URI(applicationUrl() + "/v1/baby/request/${lastBabyRequest.id}"),
         HttpMethod.PUT,
-        jsonEntity(Decision("Approved", "decider").toJson()),
+        jsonEntity(Decision("Approved", "reviewer").toJson()),
         Void::class.java)
 
     val decided = testRestTemplate.exchange(
@@ -143,7 +143,7 @@ internal class ColonyKeplerApplicationTests {
 
     Assertions.assertEquals(HttpStatus.OK, result.statusCode)
     Assertions.assertEquals(HttpStatus.OK, decided.statusCode)
-    Assertions.assertEquals("decider", decided.body!!.requests.first().decidedBy)
+    Assertions.assertEquals("reviewer", decided.body!!.requests.first().reviewer)
     Assertions.assertEquals(lastBabyRequest.id, decided.body!!.requests.first().id)
   }
 

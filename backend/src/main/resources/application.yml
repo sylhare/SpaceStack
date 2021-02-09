@@ -35,5 +35,5 @@ spring:
 
 database:
   mongo:
-    address: localhost
+    address: mongo
     port: 27017

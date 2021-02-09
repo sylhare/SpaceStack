@@ -3,6 +3,9 @@ package amaze.us.service
 import amaze.us.config.LOGGER
 import amaze.us.db.BabyRequest
 import amaze.us.db.BabyUpdate
+import amaze.us.model.Decision.Companion.APPROVED
+import amaze.us.model.Decision.Companion.DENIED
+import amaze.us.model.Decision.Companion.NEW
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.query.Criteria
@@ -16,8 +19,14 @@ class BabyRequestService {
   @Autowired
   private lateinit var mongoTemplate: MongoTemplate
 
-  fun getRequests(): MutableList<BabyRequest> = try {
-    mongoTemplate.findAll(BabyRequest::class.java)
+  companion object {
+    internal val new = Query(Criteria.where("status").`is`(NEW))
+    internal val approved = Query(Criteria.where("status").`is`(APPROVED))
+    internal val processed = Query(Criteria.where("status").`in`(APPROVED, DENIED))
+  }
+
+  fun getRequests(query: Query): MutableList<BabyRequest> = try {
+    mongoTemplate.find(query, BabyRequest::class.java)
   } catch (e: Exception) {
     LOGGER.error("Error while getting the requests: $e", e)
     mutableListOf()
@@ -28,13 +37,10 @@ class BabyRequestService {
   fun updateRequest(id: String, babyUpdate: BabyUpdate): Boolean {
     val update = Update().also {
       it.set("status", babyUpdate.status)
-      it.set("decidedBy", babyUpdate.decidedBy)
+      it.set("reviewer", babyUpdate.reviewer)
     }
     val updatedProfile = mongoTemplate.findAndModify(Query(Criteria.where("id").`is`(id)), update, BabyRequest::class.java)
     LOGGER.info("Update for $id - $updatedProfile")
-    return when (updatedProfile) {
-      null -> false
-      else -> true
-    }
+    return updatedProfile != null
   }
 }

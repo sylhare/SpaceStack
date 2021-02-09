@@ -27,7 +27,7 @@ class MongoTemplateFactory {
   private val port = 0
 
   @Value("\${database.mongo.address}")
-  private val hosts: String? = null
+  private val hosts: String = "mongo"
 
   private var dataBasesMap: MutableMap<String, MongoTemplate> = ConcurrentHashMap()
 
@@ -38,7 +38,7 @@ class MongoTemplateFactory {
     try {
       val serverAddresses: MutableList<ServerAddress> = ArrayList()
       LOGGER.info("Start connections to $hosts")
-      hosts!!.split(",").forEach { ip -> serverAddresses.add(ServerAddress(ip, port)) }
+      hosts.split(",").forEach { ip -> serverAddresses.add(ServerAddress(ip, port)) }
       mongoClientSettings = mongoBuilder()
           .applyToClusterSettings { builder: ClusterSettings.Builder -> builder.hosts(serverAddresses) }
           .applyToConnectionPoolSettings { builder: ConnectionPoolSettings.Builder ->
@@ -55,7 +55,7 @@ class MongoTemplateFactory {
 
   private fun mongoBuilder() = MongoClientSettings.builder()
 
-  private fun testConnection() = repeat(50) {
+  private fun testConnection() = repeat(10) {
     getDb("requests").find(Query(Criteria.where("name").`is`("testBaby")), BabyRequest::class.java)
   }
 
