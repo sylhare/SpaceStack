@@ -32,3 +32,8 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+
+database:
+  mongo:
+    address: localhost
+    port: 27017

@@ -7,6 +7,7 @@ import amaze.us.model.Decision
 import amaze.us.model.IncomingBabyRequest
 import amaze.us.model.PopulationAmount
 import amaze.us.service.ColonyHandlerService
+import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions
@@ -17,6 +18,7 @@ import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.context.annotation.Bean
+import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
@@ -87,7 +89,7 @@ internal class FailApplicationTest {
     val result = testRestTemplate.exchange(
         URI(applicationUrl() + "/v1/baby/request/babyRequestId"),
         HttpMethod.PUT,
-        jsonEntity(Decision("Approved").toJson()),
+        jsonEntity(Decision("Approved", "").toJson()),
         Void::class.java)
 
     Assertions.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, result.statusCode)
