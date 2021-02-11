@@ -3,7 +3,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-} from "../Actions/types";
+} from '../Actions/types';
 
 describe('Auth reducer', () => {
   it('should handle initial state', () => {
@@ -11,7 +11,7 @@ describe('Auth reducer', () => {
   });
 
   it('should handle login success state', () => {
-    expect(authReducer(undefined, {type: LOGIN_SUCCESS, payload: {token: "token", user: "author"}})).toEqual({isLoggedIn: true, token: "token", user: "author"})
+    expect(authReducer(undefined, {type: LOGIN_SUCCESS, payload: {token: 'token', user: 'author'}})).toEqual({isLoggedIn: true, token: 'token', user: 'author'})
   });
 
   it('should handle login failed state', () => {
@@ -19,6 +19,6 @@ describe('Auth reducer', () => {
   });
 
   it('should handle logout state', () => {
-    expect(authReducer({isLoggedIn: true, token: "token", user: "author"}, {type: LOGOUT})).toEqual({isLoggedIn: false, token: null, user: null})
+    expect(authReducer({isLoggedIn: true, token: 'token', user: 'author'}, {type: LOGOUT})).toEqual({isLoggedIn: false, token: null, user: null})
   });
 });

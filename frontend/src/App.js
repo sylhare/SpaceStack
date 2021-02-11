@@ -1,35 +1,54 @@
-import React from "react";
-import {BrowserRouter as Router, NavLink, Route} from "react-router-dom";
+import React from 'react';
+import {BrowserRouter as Router, NavLink, Redirect, Route} from 'react-router-dom';
 import './App.css';
 
-import Pioneers from "./Pages/Pioneers";
-import Manage from "./Pages/Manage";
-import Home from "./Pages/Home";
-import Audit from "./Pages/Audit";
-import Login from "./Pages/Login";
+import Pioneers from './Pages/Pioneers';
+import Manage from './Pages/Manage';
+import Home from './Pages/Home';
+import Audit from './Pages/Audit';
+import Login from './Pages/Login';
+import {useSelector} from "react-redux";
 
 function App() {
+  
+  const isLoggedIn = useSelector(state => state.authReducer.isLoggedIn);
+  console.log("APP " + isLoggedIn);
+
   return (
     <Router>
       <div>
-        <nav>
-          <ul className='header'>
-            <li><NavLink aria-label="Login" to="/login" exact activeClassName="active">Login</NavLink></li>
-            <li><NavLink aria-label="Home" to="/" exact activeClassName="active">Home</NavLink></li>
-            <li><NavLink aria-label="Pioneers" to="/pioneers/" exact activeClassName="active" >Pioneers</NavLink></li>
-            <li><NavLink aria-label="Manage" to="/manage/" exact activeClassName="active">Habitat and Survival Management</NavLink></li>
-            <li><NavLink aria-label="Audit" to="/audit/" exact activeClassName="active">Audit</NavLink></li>
-          </ul>
-        </nav>
+        <Navbar isLoggedIn={isLoggedIn}/>
 
-        <Route path="/login" exact component={Login}/>
-        <Route path="/" exact component={Home}/>
-        <Route path="/pioneers/" component={Pioneers}/>
-        <Route path="/manage/" component={Manage}/>
-        <Route path="/audit/" component={Audit}/>
+        <Route path='/login' data-test='login-route' exact component={Login}/>
+        <PrivateRoute isLoggedIn={isLoggedIn} path='/' exact component={Home}/>
+        <PrivateRoute isLoggedIn={isLoggedIn} path='/pioneers/' component={Pioneers}/>
+        <PrivateRoute isLoggedIn={isLoggedIn} path='/manage/' component={Manage}/>
+        <PrivateRoute isLoggedIn={isLoggedIn} path='/audit/' component={Audit}/>
       </div>
     </Router>
   );
 }
+
+const Navbar = ({isLoggedIn}) => (<nav>
+    <ul className='header'>
+      {!isLoggedIn && (<li><NavLink aria-label='Login' to='/login' exact activeClassName='active'>Login</NavLink></li>)}
+
+      {isLoggedIn && (
+        <React.Fragment>
+          <li><NavLink aria-label='Home' data-test='Home' to='/' exact activeClassName='active'>Home</NavLink></li>
+          <li><NavLink aria-label='Pioneers' to='/pioneers/' exact activeClassName='active'>Pioneers</NavLink></li>
+          <li><NavLink aria-label='Manage' to='/manage/' exact activeClassName='active'>Habitat and Survival
+            Management</NavLink></li>
+          <li><NavLink aria-label='Audit' to='/audit/' exact activeClassName='active'>Audit</NavLink></li>
+        </React.Fragment>
+      )}
+    </ul>
+  </nav>
+);
+
+const PrivateRoute = ({component: Component, ...rest}) => (
+  <Route {...rest} render={(props) => (props.isLoggedIn ? <Component {...props} /> : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
+  )}/>
+);
 
 export default App;

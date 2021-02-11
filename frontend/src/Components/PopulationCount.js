@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import {authHeader} from "../Services/AuthService";
+import {authHeader} from '../Services/AuthService';
 
 
 export default function PopulationCount() {
@@ -23,7 +23,7 @@ export default function PopulationCount() {
   }, []);
 
   return (<div className='PopulationCount'><p>The population counter:</p>
-    <h3>{error ? "N/A" : items.amount}</h3>
+    <h3>{error ? 'N/A' : items.amount}</h3>
   </div>);
 
 }

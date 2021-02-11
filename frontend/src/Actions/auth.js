@@ -19,7 +19,6 @@ export const login = (username, password) => (dispatch) => {
       dispatch({
         type: LOGIN_FAIL,
       });
-
       return Promise.reject();
     }
   );

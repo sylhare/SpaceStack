@@ -1,7 +1,7 @@
 import React, {useEffect, useReducer, useState} from 'react';
 import axios from 'axios';
-import {listReducer} from "./ManageBabyRequests";
-import {authHeader} from "../Services/AuthService";
+import {listReducer} from './ManageBabyRequests';
+import {authHeader} from '../Services/AuthService';
 
 
 const AuditBabyRequests = () => {

@@ -1,6 +1,7 @@
 import React, {useEffect, useReducer, useState} from 'react';
 import axios from 'axios';
-import {authHeader} from "../Services/AuthService";
+import {authHeader} from '../Services/AuthService';
+import {user} from '../store';
 
 
 export const listReducer = (state, action) => {
@@ -73,7 +74,7 @@ const Item = ({item, onRemove}) => (
 
 const ButtonBabyRequest = ({item, onRemove, decision}) => (
   <button type='button' aria-label='requestButton' className={decision} onClick={() => {
-    axios.put('/v1/baby/request/' + encodeURI(item.id), {status: decision},{ headers: authHeader()})
+    axios.put('/v1/baby/request/' + encodeURI(item.id), {status: decision, reviewer: user()},{ headers: authHeader()})
       .then(
         (response) => {
           if (response.status === 200) {

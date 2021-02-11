@@ -3,10 +3,10 @@ import {rest} from 'msw'
 import {setupServer} from 'msw/node'
 import renderer from 'react-test-renderer';
 import '@testing-library/jest-dom/extend-expect'
-import Login from "../Pages/Login";
+import Login from '../Pages/Login';
 
 import configureStore from 'redux-mock-store';
-import {Provider} from "react-redux";
+import {Provider} from 'react-redux';
 
 const mockStore = configureStore([]);
 
@@ -41,14 +41,14 @@ beforeEach(() => {
   );
 });
 
-it('should render with given state from Redux store', () => {
+test('should render with given state from Redux store', () => {
   expect(component.toJSON()).toMatchSnapshot();
 });
 
-it('should login with username password', () => {
+test('should login with username password', () => {
   renderer.act(() => {
-    component.root.findByProps({'data-test': 'username'}).props.onChange({target: {value: "username"}});
-    component.root.findByProps({'data-test': 'password'}).props.onChange({target: {value: "password"}});
+    component.root.findByProps({'data-test': 'username'}).props.onChange({target: {value: 'username'}});
+    component.root.findByProps({'data-test': 'password'}).props.onChange({target: {value: 'password'}});
   });
 
   renderer.act(() => {
@@ -58,9 +58,9 @@ it('should login with username password', () => {
   expect(store.dispatch).toHaveBeenCalledTimes(1);
 });
 
-it('should not login if username missing', () => {
+test('should not login if username missing', () => {
   renderer.act(() => {
-    component.root.findByProps({'data-test': 'password'}).props.onChange({target: {value: "password"}});
+    component.root.findByProps({'data-test': 'password'}).props.onChange({target: {value: 'password'}});
   });
 
   renderer.act(() => {
@@ -70,9 +70,9 @@ it('should not login if username missing', () => {
   expect(store.dispatch).toHaveBeenCalledTimes(0);
 });
 
-it('should not login if password missing', () => {
+test('should not login if password missing', () => {
   renderer.act(() => {
-    component.root.findByProps({'data-test': 'username'}).props.onChange({target: {value: "username"}});
+    component.root.findByProps({'data-test': 'username'}).props.onChange({target: {value: 'username'}});
   });
 
   renderer.act(() => {

@@ -12,8 +12,8 @@ const server = setupServer(
       ctx.status(200),
       ctx.json({
         requests: [
-          {name: 'first baby request', status: 'approved', id: '1', author: "jest author", reviewer: "reviewer", timestamp: "1612844443333"},
-          {name: 'second baby request', status: 'denied', id: '2', author: "jest author", reviewer: "reviewer", timestamp: "1612844443333"}
+          {name: 'first baby request', status: 'approved', id: '1', author: 'jest author', reviewer: 'reviewer', timestamp: '1612844443333'},
+          {name: 'second baby request', status: 'denied', id: '2', author: 'jest author', reviewer: 'reviewer', timestamp: '1612844443333'}
         ]
       }))
   }),
