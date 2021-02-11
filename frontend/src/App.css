@@ -61,7 +61,7 @@ ul.header li a {
 }
 
 /* Style inputs, select elements and textareas */
-input[type=text], select, textarea{
+input[type=text], select, textarea {
   flex: 0 1 auto;
   padding: 12px;
   border: 1px solid #ccc;
@@ -125,7 +125,7 @@ form#post-request-form {
   flex-direction: column;
 }
 
-#post-request-form p{
+#post-request-form p {
   flex: 1 1 auto;
 }
 
@@ -145,15 +145,16 @@ span.baby-name {
   margin-left: 10px;
 }
 
-.PopulationCount p, h3{
+.PopulationCount p, h3 {
   display: inline-block;
 }
+
 .PopulationCount h3 {
   margin-left: 10px;
 }
 
 .error {
-  color:#db2269;
+  color: #db2269;
   font-size: 0.7em;
   display: block;
   margin-left: 2px;
@@ -309,6 +310,10 @@ button:hover {
 span.psw {
   float: right;
   padding-top: 16px;
+}
+
+li.logout {
+  float: right;
 }
 
 

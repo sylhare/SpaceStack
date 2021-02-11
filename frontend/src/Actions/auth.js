@@ -1,4 +1,4 @@
-import {LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT,} from "./types";
+import {LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT} from "./types";
 
 import AuthService from "../Services/AuthService";
 

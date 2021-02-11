@@ -1,7 +1,7 @@
 import axios from "axios";
 
 class AuthService {
-   login(username, password) {
+  login(username, password) {
     return axios
       .post("/v1/login", {username, password})
       .then((response) => {
@@ -22,7 +22,7 @@ export function authHeader() {
   const user = JSON.parse(localStorage.getItem("auth"));
 
   if (user && user.token) {
-    return { Authorization: "Bearer " + user.token };
+    return {Authorization: "Bearer " + user.token};
   } else {
     return {};
   }

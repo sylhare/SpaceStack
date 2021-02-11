@@ -4,11 +4,9 @@ import {setupServer} from 'msw/node'
 import renderer from 'react-test-renderer';
 import '@testing-library/jest-dom/extend-expect'
 import Login from '../Pages/Login';
-
-import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 
-const mockStore = configureStore([]);
+import {loggedOutStore} from "./__mocks__";
 
 
 const server = setupServer(
@@ -26,12 +24,7 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 beforeEach(() => {
-  store = mockStore({
-    authReducer: {
-      isLoggedIn: false,
-    }
-  });
-
+  store = loggedOutStore;
   store.dispatch = jest.fn().mockImplementation(() => Promise.resolve());
 
   component = renderer.create(

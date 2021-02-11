@@ -1,16 +1,16 @@
-import {
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGOUT,
-} from "../Actions/types";
+import {LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT,} from "../Actions/types";
 
 
 const auth = JSON.parse(localStorage.getItem("auth"));
 
-const initialState = auth && auth.user && auth.token ? { isLoggedIn: true, auth } : { isLoggedIn: false, user: null, token: null };
+const initialState = auth && auth.user && auth.token ? {isLoggedIn: true, auth} : {
+  isLoggedIn: false,
+  user: null,
+  token: null
+};
 
 export default function authReducer(state = initialState, action) {
-  const { type, payload } = action;
+  const {type, payload} = action;
 
   switch (type) {
     case LOGIN_SUCCESS:

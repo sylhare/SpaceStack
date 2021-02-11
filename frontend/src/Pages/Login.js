@@ -2,19 +2,11 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom';
 import {login} from '../Actions/auth';
-import {LOGIN_SUCCESS} from "../Actions/types";
 
 let createHandlers = function (dispatch) {
   let loginOnSubmit = function (username, password) {
     dispatch(login(username, password))
       .catch(() => {
-        dispatch({
-          type: LOGIN_SUCCESS,
-          payload: {
-            token: "data",
-            user: "username"
-          },
-        });
       });
   };
 

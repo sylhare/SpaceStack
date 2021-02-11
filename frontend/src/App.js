@@ -7,15 +7,21 @@ import Manage from './Pages/Manage';
 import Home from './Pages/Home';
 import Audit from './Pages/Audit';
 import Login from './Pages/Login';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {logout} from "./Actions/auth";
 
 function App() {
   const isLoggedIn = useSelector(state => state.authReducer.isLoggedIn);
+  const dispatch = useDispatch();
+  const logOut = () => {
+    dispatch(logout());
+  };
+
 
   return (
     <Router>
       <div>
-        <Navbar isLoggedIn={isLoggedIn}/>
+        <Navbar isLoggedIn={isLoggedIn} logOut={logOut}/>
 
         <Route path='/login' data-test='login-route' exact component={Login}/>
         <PrivateRoute isLoggedIn={isLoggedIn} path='/' exact component={Home}/>
@@ -27,7 +33,7 @@ function App() {
   );
 }
 
-const Navbar = ({isLoggedIn}) =>
+const Navbar = ({isLoggedIn, logOut}) =>
   (<nav>
       <ul className='header'>
         {!isLoggedIn && (
@@ -40,6 +46,7 @@ const Navbar = ({isLoggedIn}) =>
             <li><NavLink aria-label='Manage' to='/manage/' exact activeClassName='active'>Habitat and Survival
               Management</NavLink></li>
             <li><NavLink aria-label='Audit' to='/audit/' exact activeClassName='active'>Audit</NavLink></li>
+            <li aria-label='Logout' className='logout'><a href='/' data-test='logout' onClick={logOut}>Logout</a></li>
           </React.Fragment>
         )}
       </ul>

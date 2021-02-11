@@ -3,11 +3,11 @@ import {authHeader} from "./AuthService";
 import {user} from "../store";
 
 const getProcessedRequest = () => {
-  return axios.get('/v1/baby/request/audit',{ headers: authHeader()})
+  return axios.get('/v1/baby/request/audit', {headers: authHeader()})
 };
 
 const getRequest = () => {
-  return axios.get('/v1/baby/request',{ headers: authHeader()})
+  return axios.get('/v1/baby/request', {headers: authHeader()})
 };
 
 const postRequest = (name) => {
@@ -15,19 +15,21 @@ const postRequest = (name) => {
 };
 
 const putRequestDecision = (id, decision) => {
-  return axios.put('/v1/baby/request/' + encodeURI(id), {status: decision, reviewer: user()},{ headers: authHeader()})
+  return axios.put('/v1/baby/request/' + encodeURI(id), {status: decision, reviewer: user()}, {headers: authHeader()})
 };
 
 const getPopulation = () => {
-  return axios.get('/v1/population', { headers: authHeader()})
+  return axios.get('/v1/population', {headers: authHeader()})
 };
 
-export default {
+const ColonyService = {
   getPopulation,
   getRequest,
   getProcessedRequest,
   postRequest,
   putRequestDecision
 };
+
+export default ColonyService;
 
 

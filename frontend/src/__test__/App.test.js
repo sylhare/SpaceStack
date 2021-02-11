@@ -1,59 +1,48 @@
 import React from 'react'
 import App from '../App';
-import configureStore from 'redux-mock-store';
 import renderer from 'react-test-renderer';
 import {Provider} from 'react-redux';
+import {loggedInStore, loggedOutStore} from "./__mocks__";
 
-const mockStore = configureStore([]);
-
-test('Renders App', () => {
-  let store = mockStore({
-    authReducer: {
-      isLoggedIn: false,
-    }
-  });
-
-  let component = renderer.create(
+const renderApp = (store) => (
+  renderer.create(
     <Provider store={store}>
       <App/>
     </Provider>
-  );
+  )
+);
+
+test('Renders App', () => {
+  let component = renderApp(loggedOutStore);
 
   expect(component.toJSON()).toMatchSnapshot();
 });
 
 test('Only log in page should be displayed when logged out', () => {
-  let store = mockStore({
-    authReducer: {
-      isLoggedIn: false,
-    }
-  });
+  let component = renderApp(loggedOutStore);
 
-  let component = renderer.create(
-    <Provider store={store}>
-      <App/>
-    </Provider>
-  );
-
-  expect(component.root.findByProps({'data-test':'login-route'})).toBeTruthy();
-  expect(component.toJSON()).not.toContain('pioneers')
+  expect(component.root.findByProps({'data-test': 'login-route'})).toBeTruthy();
+  expect(component.toJSON()).not.toContain(/pioneers/i)
 });
 
 test('Login page does not appear when logged in', () => {
-  let store = mockStore({
-    authReducer: {
-      isLoggedIn: true,
-    }
+  let component = renderApp(loggedInStore);
+
+  renderer.act(() => {
   });
 
-  let component = renderer.create(
-    <Provider store={store}>
-      <App/>
-    </Provider>
-  );
+  expect(component.toJSON()).not.toContain(/login/i);
+  expect(component.root.findByProps({'data-test': 'Home'})).toBeTruthy();
+});
 
-  renderer.act(() => {});
+test('Logout should log out', () => {
+  let store = loggedInStore;
+  store.dispatch = jest.fn().mockImplementation(() => Promise.resolve());
+  let component = renderApp(store);
 
-  expect(component.toJSON()).not.toContain(/Login/i);
-  expect(component.root.findByProps({'data-test':'Home'})).toBeTruthy();
+  renderer.act(() => {
+    component.root.findByProps({'data-test': 'logout'}).props.onClick();
+  });
+
+  expect(store.dispatch).toHaveBeenCalledTimes(1);
 });
