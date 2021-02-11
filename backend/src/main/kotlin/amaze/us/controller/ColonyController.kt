@@ -39,7 +39,7 @@ class ColonyController {
     ResponseEntity(ListOfBabyRequest(), HttpStatus.INTERNAL_SERVER_ERROR)
   }
 
-  @ApiOperation(value = "Submit a baby request", response = IncomingBabyRequest::class)
+  @ApiOperation(value = "Submit a baby request", response = String::class)
   @ApiResponses(
       ApiResponse(code = 201, message = "Request have been accepted and created"),
       ApiResponse(code = 409, message = "Request have been denied due to bad character in baby's name"),
@@ -53,7 +53,7 @@ class ColonyController {
     ResponseEntity("", HttpStatus.INTERNAL_SERVER_ERROR)
   }
 
-  @ApiOperation(value = "To review decision on baby requests", response = Decision::class)
+  @ApiOperation(value = "To review decision on baby requests", response = ListOfBabyRequest::class)
   @GetMapping(value = ["/baby/request/audit"])
   internal fun babyRequestAudit() = try {
     LOGGER.info("Audit requested")
@@ -62,7 +62,7 @@ class ColonyController {
       ResponseEntity(ListOfBabyRequest(), HttpStatus.INTERNAL_SERVER_ERROR)
   }
 
-  @ApiOperation(value = "Decide on a baby request", response = Decision::class)
+  @ApiOperation(value = "Decide on a baby request", response = String::class)
   @ApiResponses(
       ApiResponse(code = 200, message = "Request have been correctly processed"),
       ApiResponse(code = 409, message = "Decision or ID was not recognized"),

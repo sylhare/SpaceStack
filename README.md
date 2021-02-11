@@ -19,5 +19,6 @@ You can have more details on each part of the application by checking the readme
 
 ## Functions
 
-The "baby call flow" is handled meaning you can create, get, approve/deny the baby requests.
-So far there are no databases and everything is saved in memory.
+The login is Jwt base and allow to record the user's action.
+The "baby call flow" is handled meaning you can create, get, approve/deny and review the baby requests.
+The baby requests are saved and updated inside a Mongo Database.

@@ -6,6 +6,9 @@ import amaze.us.model.ListOfBabyRequest
 import amaze.us.model.Decision
 import amaze.us.model.IncomingBabyRequest
 import amaze.us.model.PopulationAmount
+import amaze.us.security.AuthenticationService
+import amaze.us.security.LoginRequest
+import amaze.us.security.LoginResponse
 import amaze.us.service.ColonyHandlerService
 import io.mockk.every
 import io.mockk.mockk
@@ -45,6 +48,13 @@ internal class FailApplicationTest {
       every { colonyService.processedRequests() } throws RuntimeException()
       return colonyService
     }
+
+    @Bean
+    fun authenticationService(): AuthenticationService {
+      val authenticationService = mockk<AuthenticationService>()
+      every { authenticationService.getAuthenticationToken(any()) } throws RuntimeException()
+      return authenticationService
+    }
   }
 
   @Test
@@ -82,7 +92,6 @@ internal class FailApplicationTest {
     Assertions.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, result.statusCode)
   }
 
-
   @Test
   fun babyRequestApprovalTest() {
     val result = testRestTemplate.exchange(
@@ -94,7 +103,6 @@ internal class FailApplicationTest {
     Assertions.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, result.statusCode)
   }
 
-
   @Test
   fun failToGetAuditBabyRequestsTest() {
     val result = testRestTemplate.exchange(
@@ -105,6 +113,18 @@ internal class FailApplicationTest {
 
     Assertions.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, result.statusCode)
     Assertions.assertEquals(ListOfBabyRequest(), result.body)
+  }
+
+  @Test
+  fun failToLoginTest() {
+    val response = testRestTemplate.exchange(
+        URI(applicationUrl() + "/v1/login"),
+        HttpMethod.POST,
+        jsonEntity(LoginRequest("user", " ").toJson()),
+        LoginResponse::class.java)
+
+    Assertions.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.statusCode)
+    Assertions.assertEquals("", response.body!!.token)
   }
 
   private fun applicationUrl() = "http://localhost:$applicationPort"
