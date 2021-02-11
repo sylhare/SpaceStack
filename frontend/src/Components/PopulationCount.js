@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import {authHeader} from "../Services/AuthService";
 
 
 export default function PopulationCount() {
@@ -8,7 +9,7 @@ export default function PopulationCount() {
 
   useEffect(() => {
     let unmounted = false;
-    axios.get('/v1/population')
+    axios.get('/v1/population', { headers: authHeader()})
       .then(
         (result) => {
           if (!unmounted) setItems(result.data);

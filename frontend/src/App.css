@@ -9,6 +9,7 @@ h2,
 h3,
 p,
 span,
+label,
 ul,
 i,
 li {
@@ -101,16 +102,8 @@ button.approved {
   background-color: #77a8a8;
 }
 
-button.approved:hover {
-  background-color: #b2c2bf;
-}
-
 button.denied {
   background-color: #c94c4c;
-}
-
-button.denied:hover {
-  background-color: #eea29a;
 }
 
 input[type=submit]:hover {
@@ -260,5 +253,62 @@ span.baby-name {
   color: #f7786b;
 }
 
+.login {
+  display: flex;
+  width: 95%;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0;
+  font-size: 1.2em;
+}
+
+label.login-input {
+  padding-bottom: 5px;
+  margin-top: 20px;
+}
+
+form {
+  width: 50%;
+}
+
+input[type=text].login-input, input[type=password].login-input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button.login-button {
+  background-color: #f7786b;
+  color: white;
+  padding: 14px 50px;
+  margin: 20px 0;
+  border: none;
+  cursor: pointer;
+  max-width: 50%;
+  float: right;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
 
 

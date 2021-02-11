@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Snackbar from "./Snackbar";
+import {authHeader} from "../Services/AuthService";
 
 
 export default class PostBabyRequests extends React.Component {
@@ -22,7 +23,7 @@ export default class PostBabyRequests extends React.Component {
 
   postRequest = (event) => {
     event.preventDefault();
-    axios.post('/v1/baby/request', {name: this.state.name})
+    axios.post('/v1/baby/request', {name: this.state.name}, { headers: authHeader()})
       .then((response) => {
           if (response.status === 201) {
             this.sendSnackbar('You have submitted a baby request for ' + this.state.name);

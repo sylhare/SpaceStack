@@ -1,5 +1,6 @@
 import React, {useEffect, useReducer, useState} from 'react';
 import axios from 'axios';
+import {authHeader} from "../Services/AuthService";
 
 
 export const listReducer = (state, action) => {
@@ -25,7 +26,7 @@ const ManageBabyRequests = () => {
 
   useEffect(() => {
     let unmounted = false;
-    axios.get('/v1/baby/request')
+    axios.get('/v1/baby/request',{ headers: authHeader()})
       .then(
         (result) => {
           if(!unmounted) {
@@ -72,18 +73,13 @@ const Item = ({item, onRemove}) => (
 
 const ButtonBabyRequest = ({item, onRemove, decision}) => (
   <button type='button' aria-label='requestButton' className={decision} onClick={() => {
-    axios.put('/v1/baby/request/' + encodeURI(item.id), {status: decision})
+    axios.put('/v1/baby/request/' + encodeURI(item.id), {status: decision},{ headers: authHeader()})
       .then(
         (response) => {
           if (response.status === 200) {
             onRemove(item.id)
-          } else {
-            //console.log(response.status)
           }
         },
-        (error) => {
-          //console.log(error)
-        }
       )
   }}>
     {decision === 'approved' ? 'approve' : 'deny'}

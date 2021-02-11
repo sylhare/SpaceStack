@@ -1,6 +1,7 @@
 import React, {useEffect, useReducer, useState} from 'react';
 import axios from 'axios';
 import {listReducer} from "./ManageBabyRequests";
+import {authHeader} from "../Services/AuthService";
 
 
 const AuditBabyRequests = () => {
@@ -9,7 +10,7 @@ const AuditBabyRequests = () => {
 
   useEffect(() => {
     let unmounted = false;
-    axios.get('/v1/baby/request/audit')
+    axios.get('/v1/baby/request/audit',{ headers: authHeader()})
       .then(
         (result) => {
           if(!unmounted) {
