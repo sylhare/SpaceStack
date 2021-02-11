@@ -5,7 +5,9 @@ import {
 } from "../Actions/types";
 
 
-const initialState = { isLoggedIn: false, token: null, user: null };
+const auth = JSON.parse(localStorage.getItem("auth"));
+
+const initialState = auth && auth.user && auth.token ? { isLoggedIn: true, auth } : { isLoggedIn: false, user: null, token: null };
 
 export default function authReducer(state = initialState, action) {
   const { type, payload } = action;

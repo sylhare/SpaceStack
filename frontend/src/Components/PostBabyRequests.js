@@ -1,8 +1,6 @@
 import React from 'react';
-import axios from 'axios';
 import Snackbar from "./Snackbar";
-import {authHeader} from "../Services/AuthService";
-import {user} from "../store";
+import ColonyService from "../Services/ColonyService";
 
 
 export default class PostBabyRequests extends React.Component {
@@ -24,21 +22,19 @@ export default class PostBabyRequests extends React.Component {
 
   postRequest = (event) => {
     event.preventDefault();
-    axios.post('/v1/baby/request', {name: this.state.name, author: user()}, {headers: authHeader()})
-      .then((response) => {
-          if (response.status === 201) {
-            this.sendSnackbar('You have submitted a baby request for ' + this.state.name);
-            this.setState({name: '', snackbar: true});
-            document.getElementById('post-request-form').reset();
-          } else {
-            this.sendSnackbar('Your baby request for ' + this.state.name + ' did not work please try again');
-          }
-        },
-        (error) => {
-          this.sendSnackbar('There was an error with the server, ' + error);
+    ColonyService.postRequest(this.state.name).then((response) => {
+        if (response.status === 201) {
+          this.sendSnackbar('You have submitted a baby request for ' + this.state.name);
+          this.setState({name: '', snackbar: true});
+          document.getElementById('post-request-form').reset();
+        } else {
+          this.sendSnackbar('Your baby request for ' + this.state.name + ' did not work please try again');
         }
-      )
-
+      },
+      (error) => {
+        this.sendSnackbar('There was an error with the server, ' + error);
+      }
+    )
   };
 
   nameChangeHandler = (event) => {

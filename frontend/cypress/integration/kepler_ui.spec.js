@@ -1,8 +1,11 @@
 context('Kepler Colony Tests', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000')
+    cy.intercept('POST', 'http://localhost:3000/v1/login', { fixture: 'authentication.json' });
+    cy.visit('http://localhost:3000/login');
+    cy.get('input[data-test=username]').type('username');
+    cy.get('input[data-test=password]').type(`password`);
+    cy.get('button.login-button').click();
   });
-
 
 
   it('can go to Home page', () => {

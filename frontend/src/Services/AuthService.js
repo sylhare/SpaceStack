@@ -6,20 +6,20 @@ class AuthService {
       .post("/v1/login", {username, password})
       .then((response) => {
         if (response.data.token) {
-          localStorage.setItem("user", JSON.stringify(response.data));
+          localStorage.setItem("auth", JSON.stringify({token: response.data.token, user: username}));
         }
         return response.data;
       });
   };
 
   logout = () => {
-    localStorage.removeItem("user");
+    localStorage.removeItem("auth");
   };
 
 }
 
 export function authHeader() {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("auth"));
 
   if (user && user.token) {
     return { Authorization: "Bearer " + user.token };

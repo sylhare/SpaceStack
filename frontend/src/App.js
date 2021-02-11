@@ -10,9 +10,7 @@ import Login from './Pages/Login';
 import {useSelector} from "react-redux";
 
 function App() {
-  
   const isLoggedIn = useSelector(state => state.authReducer.isLoggedIn);
-  console.log("APP " + isLoggedIn);
 
   return (
     <Router>
@@ -29,26 +27,27 @@ function App() {
   );
 }
 
-const Navbar = ({isLoggedIn}) => (<nav>
-    <ul className='header'>
-      {!isLoggedIn && (<li><NavLink aria-label='Login' to='/login' exact activeClassName='active'>Login</NavLink></li>)}
+const Navbar = ({isLoggedIn}) =>
+  (<nav>
+      <ul className='header'>
+        {!isLoggedIn && (
+          <li><NavLink aria-label='Login' to='/login' exact activeClassName='active'>Login</NavLink></li>)}
 
-      {isLoggedIn && (
-        <React.Fragment>
-          <li><NavLink aria-label='Home' data-test='Home' to='/' exact activeClassName='active'>Home</NavLink></li>
-          <li><NavLink aria-label='Pioneers' to='/pioneers/' exact activeClassName='active'>Pioneers</NavLink></li>
-          <li><NavLink aria-label='Manage' to='/manage/' exact activeClassName='active'>Habitat and Survival
-            Management</NavLink></li>
-          <li><NavLink aria-label='Audit' to='/audit/' exact activeClassName='active'>Audit</NavLink></li>
-        </React.Fragment>
-      )}
-    </ul>
-  </nav>
-);
+        {isLoggedIn && (
+          <React.Fragment>
+            <li><NavLink aria-label='Home' data-test='Home' to='/' exact activeClassName='active'>Home</NavLink></li>
+            <li><NavLink aria-label='Pioneers' to='/pioneers/' exact activeClassName='active'>Pioneers</NavLink></li>
+            <li><NavLink aria-label='Manage' to='/manage/' exact activeClassName='active'>Habitat and Survival
+              Management</NavLink></li>
+            <li><NavLink aria-label='Audit' to='/audit/' exact activeClassName='active'>Audit</NavLink></li>
+          </React.Fragment>
+        )}
+      </ul>
+    </nav>
+  );
 
 const PrivateRoute = ({component: Component, ...rest}) => (
-  <Route {...rest} render={(props) => (props.isLoggedIn ? <Component {...props} /> : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
-  )}/>
-);
+  <Route {...rest} render={(props) => (rest.isLoggedIn ? <Component {...props} /> : <Redirect to='/login'/>
+  )}/>);
 
 export default App;

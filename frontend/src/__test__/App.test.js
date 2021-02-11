@@ -55,5 +55,5 @@ test('Login page does not appear when logged in', () => {
   renderer.act(() => {});
 
   expect(component.toJSON()).not.toContain(/Login/i);
-  expect(component.toJSON()).toMatchSnapshot();
+  expect(component.root.findByProps({'data-test':'Home'})).toBeTruthy();
 });

@@ -1,8 +1,7 @@
 import React, {useEffect, useReducer, useState} from 'react';
-import axios from 'axios';
-import {listReducer} from './ManageBabyRequests';
-import {authHeader} from '../Services/AuthService';
-
+import {listReducer} from "../Reducers/listReducer";
+import {LOAD_ITEM} from "../Actions/types";
+import ColonyService from "../Services/ColonyService";
 
 const AuditBabyRequests = () => {
   const [requests, dispatchListData] = useReducer(listReducer, {list: []});
@@ -10,22 +9,23 @@ const AuditBabyRequests = () => {
 
   useEffect(() => {
     let unmounted = false;
-    axios.get('/v1/baby/request/audit',{ headers: authHeader()})
-      .then(
-        (result) => {
-          if(!unmounted) {
-            dispatchListData({type: 'LOAD_ITEM', data: result.data.requests});
-            setError(false)
-          }
-        },
-        (_) => {
-          setError(true)
+    ColonyService.getProcessedRequest().then(
+      (result) => {
+        if (!unmounted) {
+          dispatchListData({type: LOAD_ITEM, data: result.data.requests});
+          setError(false)
         }
-      );
-    return () => { unmounted = true };
+      },
+      (_) => {
+        setError(true)
+      }
+    );
+    return () => {
+      unmounted = true
+    };
   }, []);
 
-  return error ? <i>Unexpected error while retrieving requests</i> : <ProcessedRequests list={requests.list} />;
+  return error ? <i>Unexpected error while retrieving requests</i> : <ProcessedRequests list={requests.list}/>;
 };
 
 const ProcessedRequests = ({list}) => {
