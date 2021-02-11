@@ -1,9 +1,9 @@
 package amaze.us.controller
 
 import amaze.us.config.LOGGER
-import amaze.us.model.ListOfBabyRequest
 import amaze.us.model.Decision
 import amaze.us.model.IncomingBabyRequest
+import amaze.us.model.ListOfBabyRequest
 import amaze.us.model.PopulationAmount
 import amaze.us.service.ColonyHandlerService
 import io.swagger.annotations.ApiOperation
@@ -59,7 +59,7 @@ class ColonyController {
     LOGGER.info("Audit requested")
     ResponseEntity(colonyHandlerService.processedRequests(), HttpStatus.OK)
   } catch (e: Exception) {
-      ResponseEntity(ListOfBabyRequest(), HttpStatus.INTERNAL_SERVER_ERROR)
+    ResponseEntity(ListOfBabyRequest(), HttpStatus.INTERNAL_SERVER_ERROR)
   }
 
   @ApiOperation(value = "Decide on a baby request", response = String::class)

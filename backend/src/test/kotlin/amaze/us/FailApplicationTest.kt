@@ -2,9 +2,9 @@ package amaze.us
 
 import amaze.us.mock.jsonEntity
 import amaze.us.mock.toJson
-import amaze.us.model.ListOfBabyRequest
 import amaze.us.model.Decision
 import amaze.us.model.IncomingBabyRequest
+import amaze.us.model.ListOfBabyRequest
 import amaze.us.model.PopulationAmount
 import amaze.us.security.AuthenticationService
 import amaze.us.security.LoginRequest

@@ -22,7 +22,6 @@ class BabyRequestService {
   companion object {
     internal val new = Query(Criteria.where("status").`is`(NEW))
     internal val approved = Query(Criteria.where("status").`is`(APPROVED))
-    internal val processed = Query(Criteria.where("status").`in`(APPROVED, DENIED))
   }
 
   fun getRequests(query: Query): MutableList<BabyRequest> = try {
@@ -35,12 +34,11 @@ class BabyRequestService {
   fun createRequest(request: BabyRequest) = LOGGER.info("Baby request has been added ${mongoTemplate.insert(request)}")
 
   fun updateRequest(id: String, babyUpdate: BabyUpdate): Boolean {
+    LOGGER.info("Update for $id - $babyUpdate")
     val update = Update().also {
       it.set("status", babyUpdate.status)
       it.set("reviewer", babyUpdate.reviewer)
     }
-    val updatedProfile = mongoTemplate.findAndModify(Query(Criteria.where("id").`is`(id)), update, BabyRequest::class.java)
-    LOGGER.info("Update for $id - $updatedProfile")
-    return updatedProfile != null
+    return mongoTemplate.findAndModify(Query(Criteria.where("id").`is`(id)), update, BabyRequest::class.java) != null
   }
 }

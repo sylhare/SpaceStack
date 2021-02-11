@@ -1,10 +1,6 @@
 package amaze.us.model
 
 import amaze.us.db.BabyRequest
-import amaze.us.model.Decision.Companion.APPROVED
-import amaze.us.model.Decision.Companion.DENIED
-import amaze.us.model.Decision.Companion.NEW
-import java.util.*
 
 data class PopulationAmount(val amount: String) {
   constructor() : this("N/A")

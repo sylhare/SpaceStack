@@ -6,7 +6,7 @@
 
 It is using JDK11 (openjdk version "11.0.2") as well as gradle 6.3.
 Fully developed in Kotlin.
-The db used is Mongo DB.
+The persistent storage used is Mongo DB.
 
 ### Build
 
@@ -38,7 +38,7 @@ Then you can run it using standalone:
 docker run -p 8103:8103 kepler-colony:latest 
 ```
 
-And it will run on [localhost:8103](http://localhost:8103).
+It will run on [localhost:8103](http://localhost:8103).
 To get the full view of the app with the db, use the docker compose file.
 
 ## Api Info
@@ -50,7 +50,7 @@ This api manage the Colony population via the approval or denial of baby request
 - POST `/v1/baby/request`: To send a request to have a Baby.
 - PUT `/v1/baby/request/{id}`: To approve or deny a request to have a baby via its id.
 - GET `/v1/baby/request`: To get the list of pending requests.
-- GET `/v1/baby/request/audit`: To get the list of processed requests.
+- GET `/v1/baby/request/audit`: To get the list of approved requests from newest to oldest.
 
 You can start the app and check the swagger at [localhost:8103/swagger-ui.html](http://localhost:8103/swagger-ui.html#/colony-controller)
 
