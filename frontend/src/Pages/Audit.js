@@ -6,7 +6,7 @@ function Audit() {
     <div className="content">
       <h1>Audit the processed Baby requests</h1>
       <p>
-        Processed requests:
+        Look through the processed approved requests. You may use the search bar for better results:
       </p>
       <AuditBabyRequests/>
     </div>

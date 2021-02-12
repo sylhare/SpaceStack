@@ -316,4 +316,10 @@ li.logout {
   float: right;
 }
 
-
+input[type="text"].filter {
+  width: 62em;
+  background-image: url('Resources/searchicon.png');
+  padding: 12px 20px 12px 40px;
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+}

@@ -1,7 +1,7 @@
 import React from 'react'
 import {rest} from 'msw'
 import {setupServer} from 'msw/node'
-import {render, waitFor} from '@testing-library/react'
+import {fireEvent, render, waitFor} from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import Audit from '../Pages/Audit';
 
@@ -18,11 +18,11 @@ const server = setupServer(
             id: '1',
             author: 'jest author',
             reviewer: 'reviewer',
-            timestamp: '1612844443333'
+            timestamp: '1612844443334'
           },
           {
             name: 'second baby request',
-            status: 'denied',
+            status: 'approved',
             id: '2',
             author: 'jest author',
             reviewer: 'reviewer',
@@ -43,5 +43,19 @@ test('Load and display the processed baby requests', async () => {
   await waitFor(() => getAllByText(/first/i));
 
   expect(getAllByText(/jest author/i).length).toBe(2);
+  expect(getByText('second baby request')).toBeTruthy()
+});
+
+test('Filter the processed baby requests', async () => {
+  const {getByRole, getByText, getAllByText} = render(<Audit/>);
+
+  await waitFor(() => getAllByText(/first/i));
+
+
+  fireEvent.input(getByRole('textbox'), {
+    target: {value: 'second'}
+  });
+
+  expect(getAllByText(/jest author/i).length).toBe(1);
   expect(getByText('second baby request')).toBeTruthy()
 });
