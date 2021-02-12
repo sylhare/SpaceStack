@@ -29,5 +29,5 @@ jobs:
       run: chmod +x gradlew
       working-directory: backend
     - name: Build and test with Gradle
-      # run: ./gradlew build test jacocoTestReport # Can't pull testcontainers mongo image for test :(
+      run: echo "run it locally for now" # run: ./gradlew build test jacocoTestReport # Can't pull testcontainers mongo image for test :(
       working-directory: backend
