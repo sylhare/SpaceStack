@@ -10,19 +10,15 @@ export default class Snackbar extends PureComponent {
 
   openSnackBar = (message = 'Something went wrong...') => {
     this.message = message;
-    this.setState({isActive: true}, () => {
+    this.activeTimer = this.setState({isActive: true}, () => {
       setTimeout(() => {
         if (this.mounted) this.setState({isActive: false});
       }, 3000);
     });
   };
 
-  componentDidMount() {
-    this.mounted = true;
-  }
-
   componentWillUnmount() {
-    this.mounted = false;
+    clearInterval(this.activeTimer);
   }
 
   render() {
