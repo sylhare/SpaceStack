@@ -3,16 +3,6 @@ import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom';
 import {login} from '../Actions/auth';
 
-let createHandlers = function (dispatch) {
-  let loginOnSubmit = function (username, password) {
-    dispatch(login(username, password))
-      .catch(() => {
-      });
-  };
-
-  return {loginOnSubmit};
-};
-
 
 class Login extends Component {
   constructor(props) {
@@ -23,7 +13,6 @@ class Login extends Component {
       errorUsername: '',
       errorPassword: '',
     };
-    this.handlers = createHandlers(this.props.dispatch);
   }
 
   handleSubmit = (evt) => {
@@ -33,7 +22,7 @@ class Login extends Component {
 
 
     if (this.state.username && this.state.password) {
-      this.handlers.loginOnSubmit(this.state.username, this.state.password)
+      this.props.dispatch(login(this.state.username, this.state.password))
     }
   };
 
