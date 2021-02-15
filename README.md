@@ -12,7 +12,7 @@ It is composed of:
 You can run the project using:
 
 ```bash
-docker-compose up
+docker-compose up --build
 ``` 
 
 You can have more details on each part of the application by checking the readme in their respective folder.

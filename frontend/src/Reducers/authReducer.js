@@ -1,7 +1,7 @@
-import {LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT,} from "../Actions/types";
+import {LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT,} from '../Actions/types';
 
 
-const auth = JSON.parse(localStorage.getItem("auth"));
+const auth = JSON.parse(localStorage.getItem('auth'));
 
 const initialState = auth && auth.user && auth.token ? {isLoggedIn: true, auth} : {
   isLoggedIn: false,

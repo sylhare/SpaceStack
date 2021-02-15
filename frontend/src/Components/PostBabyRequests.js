@@ -1,6 +1,6 @@
 import React from 'react';
-import Snackbar from "./Snackbar";
-import ColonyService from "../Services/ColonyService";
+import Snackbar from './Snackbar';
+import ColonyService from '../Services/ColonyService';
 
 
 export default class PostBabyRequests extends React.Component {

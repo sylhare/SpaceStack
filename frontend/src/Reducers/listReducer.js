@@ -1,4 +1,4 @@
-import {LOAD_ITEM, REMOVE_ITEM} from "../Actions/types";
+import {LOAD_ITEM, REMOVE_ITEM} from '../Actions/types';
 
 export const listReducer = (state, action) => {
   switch (action.type) {

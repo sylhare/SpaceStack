@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
 function Home() {
   return (
-    <div className="content">
+    <div className='content'>
       <h1>Kepler Colony</h1>
       <p>
         This is the new Kepler Colony App.

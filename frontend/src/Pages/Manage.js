@@ -1,9 +1,9 @@
-import React from "react";
-import ManageBabyRequests from "../Components/ManageBabyRequests";
+import React from 'react';
+import ManageBabyRequests from '../Components/ManageBabyRequests';
 
 function Manage() {
   return (
-    <div className="content">
+    <div className='content'>
       <h1>Review the Baby requests</h1>
       <p>
         This is the Habitat and Survival Management Page, be wary of the future of the colony.

@@ -1,7 +1,7 @@
 import React, {useEffect, useReducer, useState} from 'react';
-import {listReducer} from "../Reducers/listReducer";
-import {LOAD_ITEM} from "../Actions/types";
-import ColonyService from "../Services/ColonyService";
+import {listReducer} from '../Reducers/listReducer';
+import {LOAD_ITEM} from '../Actions/types';
+import ColonyService from '../Services/ColonyService';
 
 const AuditBabyRequests = () => {
   const [requests, dispatchListData] = useReducer(listReducer, {list: []});
@@ -51,7 +51,7 @@ const Table = ({list}) => {
       <div className='flex-container'>
         <input
           className='filter'
-          type="text"
+          type='text'
           value={filter}
           placeholder='Enter a name, author or reviewer to filter'
           onChange={e => setFilter(e.target.value)}/>

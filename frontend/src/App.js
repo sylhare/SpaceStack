@@ -7,8 +7,8 @@ import Manage from './Pages/Manage';
 import Home from './Pages/Home';
 import Audit from './Pages/Audit';
 import Login from './Pages/Login';
-import {useDispatch, useSelector} from "react-redux";
-import {logout} from "./Actions/auth";
+import {useDispatch, useSelector} from 'react-redux';
+import {logout} from './Actions/auth';
 
 function App() {
   const isLoggedIn = useSelector(state => state.authReducer.isLoggedIn);

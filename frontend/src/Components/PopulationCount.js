@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import ColonyService from "../Services/ColonyService";
-
+import React, { useEffect, useState } from 'react';
+import ColonyService from '../Services/ColonyService';
 
 export default function PopulationCount() {
   const [error, setError] = useState(null);

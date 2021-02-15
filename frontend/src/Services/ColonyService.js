@@ -1,6 +1,6 @@
-import axios from "axios";
-import {authHeader} from "./AuthService";
-import {user} from "../store";
+import axios from 'axios';
+import {authHeader} from './AuthService';
+import {user} from '../store';
 
 const getProcessedRequest = () => {
   return axios.get('/v1/baby/request/audit', {headers: authHeader()})

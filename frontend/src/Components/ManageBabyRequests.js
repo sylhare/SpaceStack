@@ -1,7 +1,7 @@
 import React, {useEffect, useReducer, useState} from 'react';
-import {LOAD_ITEM, REMOVE_ITEM} from "../Actions/types";
-import {listReducer} from "../Reducers/listReducer";
-import ColonyService from "../Services/ColonyService";
+import {LOAD_ITEM, REMOVE_ITEM} from '../Actions/types';
+import {listReducer} from '../Reducers/listReducer';
+import ColonyService from '../Services/ColonyService';
 
 const ManageBabyRequests = () => {
   const [requests, dispatchListData] = useReducer(listReducer, {list: []});
