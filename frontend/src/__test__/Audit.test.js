@@ -1,10 +1,9 @@
 import React from 'react'
-import {rest} from 'msw'
-import {setupServer} from 'msw/node'
-import {fireEvent, render, waitFor} from '@testing-library/react'
+import { rest } from 'msw'
+import { setupServer } from 'msw/node'
+import { fireEvent, render, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import Audit from '../Pages/Audit';
-
+import Audit from '../Pages/Audit'
 
 const server = setupServer(
   rest.get('/v1/baby/request/audit', (req, res, ctx) => {
@@ -30,32 +29,31 @@ const server = setupServer(
           }
         ]
       }))
-  }),
-);
+  })
+)
 
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
+beforeAll(() => server.listen())
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
 
 test('Load and display the processed baby requests', async () => {
-  const {getByText, getAllByText} = render(<Audit/>);
+  const { getByText, getAllByText } = render(<Audit/>)
 
-  await waitFor(() => getAllByText(/first/i));
+  await waitFor(() => getAllByText(/first/i))
 
-  expect(getAllByText(/jest author/i).length).toBe(2);
+  expect(getAllByText(/jest author/i).length).toBe(2)
   expect(getByText('second baby request')).toBeTruthy()
-});
+})
 
 test('Filter the processed baby requests', async () => {
-  const {getByRole, getByText, getAllByText} = render(<Audit/>);
+  const { getByRole, getByText, getAllByText } = render(<Audit/>)
 
-  await waitFor(() => getAllByText(/first/i));
-
+  await waitFor(() => getAllByText(/first/i))
 
   fireEvent.input(getByRole('textbox'), {
-    target: {value: 'second'}
-  });
+    target: { value: 'second' }
+  })
 
-  expect(getAllByText(/jest author/i).length).toBe(1);
+  expect(getAllByText(/jest author/i).length).toBe(1)
   expect(getByText('second baby request')).toBeTruthy()
-});
+})

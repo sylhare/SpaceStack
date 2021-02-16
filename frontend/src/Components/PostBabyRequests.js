@@ -4,10 +4,10 @@ import ColonyService from '../Services/ColonyService';
 
 
 export default class PostBabyRequests extends React.Component {
-  snackbarRef = React.createRef();
 
   constructor(props) {
     super(props);
+    this.snackbarRef = React.createRef();
     this.state = {
       name: '',
       error: '',

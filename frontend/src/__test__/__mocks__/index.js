@@ -1,15 +1,15 @@
-import configureStore from "redux-mock-store";
+import configureStore from 'redux-mock-store'
 
-export const mockStore = configureStore([]);
+export const mockStore = configureStore([])
 
 export const loggedInStore = mockStore({
   authReducer: {
-    isLoggedIn: true,
+    isLoggedIn: true
   }
-});
+})
 
 export const loggedOutStore = mockStore({
   authReducer: {
-    isLoggedIn: false,
+    isLoggedIn: false
   }
-});
+})

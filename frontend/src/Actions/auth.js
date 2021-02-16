@@ -1,6 +1,6 @@
-import {LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT} from './types';
+import { LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT } from './types'
 
-import AuthService from '../Services/AuthService';
+import AuthService from '../Services/AuthService'
 
 export const login = (username, password) => (dispatch) => {
   return AuthService.login(username, password).then(
@@ -10,24 +10,24 @@ export const login = (username, password) => (dispatch) => {
         payload: {
           token: data,
           user: username
-        },
-      });
+        }
+      })
 
-      return Promise.resolve();
+      return Promise.resolve()
     },
     (_) => {
       dispatch({
-        type: LOGIN_FAIL,
-      });
-      return Promise.reject();
+        type: LOGIN_FAIL
+      })
+      return Promise.reject()
     }
-  );
-};
+  )
+}
 
 export const logout = () => (dispatch) => {
-  AuthService.logout();
+  AuthService.logout()
 
   dispatch({
-    type: LOGOUT,
-  });
-};
+    type: LOGOUT
+  })
+}

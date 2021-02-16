@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-function Home() {
+function Home () {
   return (
     <div className='content'>
       <h1>Kepler Colony</h1>
@@ -14,7 +14,7 @@ function Home() {
         <li>Click on log out to quit.</li>
       </ul>
     </div>
-  );
+  )
 }
 
-export default Home;
+export default Home

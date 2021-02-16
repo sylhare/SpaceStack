@@ -3,7 +3,6 @@ import React, {PureComponent} from 'react';
 export default class Snackbar extends PureComponent {
   message = '';
   mounted = false;
-
   state = {
     isActive: false,
   };

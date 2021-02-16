@@ -1,22 +1,21 @@
-import React from 'react';
-import {BrowserRouter as Router, NavLink, Redirect, Route} from 'react-router-dom';
-import './App.css';
+import React from 'react'
+import { BrowserRouter as Router, NavLink, Redirect, Route } from 'react-router-dom'
+import './App.css'
 
-import Pioneers from './Pages/Pioneers';
-import Manage from './Pages/Manage';
-import Home from './Pages/Home';
-import Audit from './Pages/Audit';
-import Login from './Pages/Login';
-import {useDispatch, useSelector} from 'react-redux';
-import {logout} from './Actions/auth';
+import Pioneers from './Pages/Pioneers'
+import Manage from './Pages/Manage'
+import Home from './Pages/Home'
+import Audit from './Pages/Audit'
+import Login from './Pages/Login'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from './Actions/auth'
 
-function App() {
-  const isLoggedIn = useSelector(state => state.authReducer.isLoggedIn);
-  const dispatch = useDispatch();
+function App () {
+  const isLoggedIn = useSelector(state => state.authReducer.isLoggedIn)
+  const dispatch = useDispatch()
   const logOut = () => {
-    dispatch(logout());
-  };
-
+    dispatch(logout())
+  }
 
   return (
     <Router>
@@ -30,10 +29,10 @@ function App() {
         <PrivateRoute isLoggedIn={isLoggedIn} path='/audit/' component={Audit}/>
       </div>
     </Router>
-  );
+  )
 }
 
-const Navbar = ({isLoggedIn, logOut}) =>
+const Navbar = ({ isLoggedIn, logOut }) =>
   (<nav>
       <ul className='header'>
         {!isLoggedIn && (
@@ -51,10 +50,10 @@ const Navbar = ({isLoggedIn, logOut}) =>
         )}
       </ul>
     </nav>
-  );
+  )
 
-const PrivateRoute = ({component: Component, ...rest}) => (
+const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (rest.isLoggedIn ? <Component {...props} /> : <Redirect to='/login'/>
-  )}/>);
+  )}/>)
 
-export default App;
+export default App

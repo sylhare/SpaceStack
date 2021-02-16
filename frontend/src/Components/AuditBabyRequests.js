@@ -1,39 +1,39 @@
-import React, {useEffect, useReducer, useState} from 'react';
-import {listReducer} from '../Reducers/listReducer';
-import {LOAD_ITEM} from '../Actions/types';
-import ColonyService from '../Services/ColonyService';
+import React, { useEffect, useReducer, useState } from 'react'
+import { listReducer } from '../Reducers/listReducer'
+import { LOAD_ITEM } from '../Actions/types'
+import ColonyService from '../Services/ColonyService'
 
 const AuditBabyRequests = () => {
-  const [requests, dispatchListData] = useReducer(listReducer, {list: []});
-  const [error, setError] = useState(null);
+  const [requests, dispatchListData] = useReducer(listReducer, { list: [] })
+  const [error, setError] = useState(null)
 
   useEffect(() => {
-    let unmounted = false;
+    let unmounted = false
     ColonyService.getProcessedRequest().then(
       (result) => {
         if (!unmounted) {
-          dispatchListData({type: LOAD_ITEM, data: result.data.requests});
+          dispatchListData({ type: LOAD_ITEM, data: result.data.requests })
           setError(false)
         }
       },
       (_) => {
         setError(true)
       }
-    );
+    )
     return () => {
       unmounted = true
-    };
-  }, []);
+    }
+  }, [])
 
-  return error ? <i>Unexpected error while retrieving requests</i> : <ProcessedRequests list={requests.list}/>;
-};
+  return error ? <i>Unexpected error while retrieving requests</i> : <ProcessedRequests list={requests.list}/>
+}
 
-const ProcessedRequests = ({list}) => {
+const ProcessedRequests = ({ list }) => {
   return list.length === 0 ? <i>There are no processed requests</i> : <Table list={list}/>
-};
+}
 
-const Table = ({list}) => {
-  const [filter, setFilter] = useState('');
+const Table = ({ list }) => {
+  const [filter, setFilter] = useState('')
 
   const filteredElements = list
     .filter(e => (e.name.includes(filter) || e.author.includes(filter) || e.reviewer.includes(filter)))
@@ -44,7 +44,7 @@ const Table = ({list}) => {
         <th>{item.reviewer}</th>
         <th>{new Date(parseInt(item.timestamp)).toString().slice(0, 24)}</th>
       </tr>)
-    );
+    )
 
   return (
     <div>
@@ -73,6 +73,6 @@ const Table = ({list}) => {
         </table>
       </div>
     </div>)
-};
+}
 
-export default AuditBabyRequests;
+export default AuditBabyRequests

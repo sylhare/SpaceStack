@@ -1,12 +1,11 @@
-import React from 'react';
-import PopulationCount from '../Components/PopulationCount';
-import PostBabyRequests from '../Components/PostBabyRequests';
+import React from 'react'
+import PopulationCount from '../Components/PopulationCount'
+import PostBabyRequests from '../Components/PostBabyRequests'
 
-
-function Pioneers() {
+function Pioneers () {
   return (
     <div className='content'>
-      <h1>Pioneers' Page</h1>
+      <h1>Pioneers&apos; Page</h1>
       <p> All the information you need about the health and survival of the colony.</p>
       <PopulationCount/>
       <p>
@@ -17,7 +16,7 @@ function Pioneers() {
       </p>
       <PostBabyRequests/>
     </div>
-  );
+  )
 }
 
-export default Pioneers;
+export default Pioneers

@@ -12,9 +12,7 @@ class AuthService {
       });
   };
 
-  logout = () => {
-    localStorage.removeItem('auth');
-  };
+  logout = () => localStorage.removeItem('auth');
 
 }
 

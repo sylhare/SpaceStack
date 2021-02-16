@@ -1,7 +1,7 @@
-import React from 'react';
-import AuditBabyRequests from '../Components/AuditBabyRequests';
+import React from 'react'
+import AuditBabyRequests from '../Components/AuditBabyRequests'
 
-function Audit() {
+function Audit () {
   return (
     <div className='content'>
       <h1>Audit the processed Baby requests</h1>
@@ -10,7 +10,7 @@ function Audit() {
       </p>
       <AuditBabyRequests/>
     </div>
-  );
+  )
 }
 
-export default Audit;
+export default Audit

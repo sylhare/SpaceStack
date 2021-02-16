@@ -1,7 +1,7 @@
-import React from 'react';
-import ManageBabyRequests from '../Components/ManageBabyRequests';
+import React from 'react'
+import ManageBabyRequests from '../Components/ManageBabyRequests'
 
-function Manage() {
+function Manage () {
   return (
     <div className='content'>
       <h1>Review the Baby requests</h1>
@@ -12,7 +12,7 @@ function Manage() {
       <p>New requests:</p>
       <ManageBabyRequests/>
     </div>
-  );
+  )
 }
 
-export default Manage;
+export default Manage

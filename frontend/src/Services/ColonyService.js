@@ -1,26 +1,26 @@
-import axios from 'axios';
-import {authHeader} from './AuthService';
-import {user} from '../store';
+import axios from 'axios'
+import { authHeader } from './AuthService'
+import { user } from '../store'
 
 const getProcessedRequest = () => {
-  return axios.get('/v1/baby/request/audit', {headers: authHeader()})
-};
+  return axios.get('/v1/baby/request/audit', { headers: authHeader() })
+}
 
 const getRequest = () => {
-  return axios.get('/v1/baby/request', {headers: authHeader()})
-};
+  return axios.get('/v1/baby/request', { headers: authHeader() })
+}
 
 const postRequest = (name) => {
-  return axios.post('/v1/baby/request', {name: name, author: user()}, {headers: authHeader()})
-};
+  return axios.post('/v1/baby/request', { name: name, author: user() }, { headers: authHeader() })
+}
 
 const putRequestDecision = (id, decision) => {
-  return axios.put('/v1/baby/request/' + encodeURI(id), {status: decision, reviewer: user()}, {headers: authHeader()})
-};
+  return axios.put('/v1/baby/request/' + encodeURI(id), { status: decision, reviewer: user() }, { headers: authHeader() })
+}
 
 const getPopulation = () => {
-  return axios.get('/v1/population', {headers: authHeader()})
-};
+  return axios.get('/v1/population', { headers: authHeader() })
+}
 
 const ColonyService = {
   getPopulation,
@@ -28,8 +28,6 @@ const ColonyService = {
   getProcessedRequest,
   postRequest,
   putRequestDecision
-};
+}
 
-export default ColonyService;
-
-
+export default ColonyService
