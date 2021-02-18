@@ -16,6 +16,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "lint": "eslint --fix . --ext .js src \n",
     "test": "react-scripts test",
     "test:cov": "react-scripts test --collectCoverage",
     "test:e2e": "cypress run",
@@ -27,6 +28,10 @@
       "react-app/jest"
     ]
   },
+  "eslintIgnore": [
+    "*.spec.js",
+    "*.test.js"
+  ],
   "proxy": "http://backend:8103/",
   "browserslist": {
     "production": [
@@ -45,6 +50,12 @@
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.1.10",
     "cypress": "^6.4.0",
+    "eslint": "^7.12.1",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.3.1",
+    "eslint-plugin-react": "^7.22.0",
     "msw": "^0.26.0",
     "react-test-renderer": "^17.0.1",
     "redux-mock-store": "^1.5.4"
