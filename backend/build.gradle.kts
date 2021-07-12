@@ -1,51 +1,65 @@
-import groovy.lang.GroovyObject
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-  id("org.springframework.boot") version "2.2.2.RELEASE"
-  id("io.spring.dependency-management") version "1.0.7.RELEASE"
-  kotlin("jvm") version "1.3.50"
-  kotlin("plugin.spring") version "1.3.50"
+  val kotlinVersion = "1.5.10"
+  kotlin("jvm") version kotlinVersion
+  kotlin("plugin.spring") version kotlinVersion
+  id("org.springframework.boot") version "2.3.12.RELEASE"
+  id("io.spring.dependency-management") version "1.0.11.RELEASE"
   id("jacoco")
   `maven-publish`
-  application
+  distribution
 }
 
 group = "amaze.us"
 java.sourceCompatibility = JavaVersion.VERSION_11
-application.mainClassName = "amaze.us.ColonyKeplerApplicationKt"
 
 repositories {
   mavenCentral()
 }
 
 dependencies {
-  implementation("org.jetbrains.kotlin:kotlin-reflect")
   implementation(kotlin("stdlib-jdk8"))
-  implementation("org.springframework.boot:spring-boot-starter") {
+  implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+  implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+  //springboot
+  implementation("org.springframework.boot:spring-boot-starter"){
     exclude(module = "spring-aop")
   }
-  implementation("org.springframework.boot:spring-boot-starter-web") {
+  implementation("org.springframework.boot:spring-boot-starter-web"){
     exclude(module = "spring-boot-starter-tomcat")
   }
   implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
   implementation("org.springframework.boot:spring-boot-starter-security")
   implementation("org.springframework.boot:spring-boot-starter-undertow")
   implementation("org.springframework.boot:spring-boot-starter-actuator")
+
+  //swagger
   implementation("io.springfox:springfox-swagger2:2.6.1")
   implementation("io.springfox:springfox-swagger-ui:2.6.1")
+
+  //jwt
   implementation("io.jsonwebtoken:jjwt:0.9.1")
   implementation("javax.xml.bind:jaxb-api:2.3.1")
+
+  //logs
   implementation("ch.qos.logback:logback-core:1.2.3")
   implementation("ch.qos.logback:logback-classic:1.2.3")
   implementation("ch.qos.logback:logback-access:1.2.3")
   implementation("net.logstash.logback:logstash-logback-encoder:6.2")
+
+  // tests
   testImplementation("org.springframework.boot:spring-boot-starter-test") {
     exclude(module = "junit")
-    exclude(module="junit-vintage-engine")
+    exclude(module = "junit-vintage-engine")
     exclude(module = "mockito-core")
   }
-  testImplementation("org.springframework.security:spring-security-test")
+  testImplementation("org.springframework.security:spring-security-test") {
+    exclude(module = "junit")
+    exclude(module = "junit-vintage-engine")
+    exclude(module = "mockito-core")
+  }
   testImplementation("org.testcontainers:mongodb:1.15.0")
   testImplementation("com.ninja-squad:springmockk:2.0.2")
   testImplementation("com.github.tomakehurst:wiremock:2.20.0")
@@ -66,8 +80,8 @@ tasks.test {
 
 tasks.jacocoTestReport {
   reports {
-    xml.isEnabled = true
-    html.isEnabled = true
+    xml.required.set(true)
+    html.required.set(true)
   }
 }
 

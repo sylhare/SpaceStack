@@ -4,7 +4,7 @@
 
 ## Setup
 
-It is using JDK11 (openjdk version "11.0.2") as well as gradle 6.3.
+It is using JDK11 (openjdk version "11.0.2") as well as gradle 7.1.
 Fully developed in Kotlin.
 The persistent storage used is Mongo DB.
 
