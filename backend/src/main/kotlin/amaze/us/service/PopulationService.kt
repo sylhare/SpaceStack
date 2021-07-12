@@ -12,33 +12,36 @@ import amaze.us.service.BabyRequestService.Companion.approved
 import amaze.us.service.BabyRequestService.Companion.new
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class PopulationService {
 
-  @Autowired
-  private lateinit var babyRequestService: BabyRequestService
+    @Autowired
+    private lateinit var babyRequestService: BabyRequestService
 
-  companion object {
-    const val ILLEGAL_CHARS = "0123456789+-*/\\|][{};:\"?><,!@#$%^&"
-  }
+    companion object {
+        const val ILLEGAL_CHARS = "0123456789+-*/\\|][{};:\"?><,!@#$%^&"
+    }
 
-  private var population = 2000
+    private var population = 2000
 
-  fun count() = PopulationAmount((population + babyRequestService.getRequests(approved).size).toString())
+    fun count() = PopulationAmount((population + babyRequestService.getRequests(approved).size).toString())
 
-  fun pendingBabyRequests(): ListOfBabyRequest = ListOfBabyRequest(babyRequestService.getRequests(new))
+    fun pendingBabyRequests(): ListOfBabyRequest = ListOfBabyRequest(babyRequestService.getRequests(new))
 
-  fun processedBabyRequests(): ListOfBabyRequest = ListOfBabyRequest(babyRequestService.getRequests(approved).sortedByDescending { it.timestamp })
+    fun processedBabyRequests(): ListOfBabyRequest =
+        ListOfBabyRequest(babyRequestService.getRequests(approved).sortedByDescending { it.timestamp })
 
-  fun processNewBabyRequest(request: IncomingBabyRequest): Boolean {
-    val isGoodName = request.name.none { it in ILLEGAL_CHARS } && request.name.isNotBlank()
-    if (isGoodName) babyRequestService.createRequest(request.toBabyRequest)
-    return isGoodName
-  }
+    fun processNewBabyRequest(request: IncomingBabyRequest): Boolean {
+        val isGoodName = request.name.none { it in ILLEGAL_CHARS } && request.name.isNotBlank()
+        if (isGoodName) babyRequestService.createRequest(request.toBabyRequest)
+        return isGoodName
+    }
 
-  fun processBabyRequestUpdate(id: String, decision: Decision) = when (decision.status.toLowerCase()) {
-    APPROVED, DENIED -> babyRequestService.updateRequest(id, decision.toBabyUpdate)
-    else -> false
-  }
+    fun processBabyRequestUpdate(id: String, decision: Decision) =
+        when (decision.status.lowercase(Locale.getDefault())) {
+            APPROVED, DENIED -> babyRequestService.updateRequest(id, decision.toBabyUpdate)
+            else -> false
+        }
 }

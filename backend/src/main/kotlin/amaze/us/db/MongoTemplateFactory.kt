@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.data.mongodb.core.MongoTemplate
-import org.springframework.data.mongodb.core.SimpleMongoClientDbFactory
+import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
 import org.springframework.stereotype.Component
@@ -60,7 +60,7 @@ class MongoTemplateFactory {
   }
 
   fun getDb(category: String) = dataBasesMap.computeIfAbsent(category) {
-    MongoTemplate(SimpleMongoClientDbFactory(MongoClients.create(mongoClientSettings), it))
+    MongoTemplate(SimpleMongoClientDatabaseFactory(MongoClients.create(mongoClientSettings), it))
   }
 
   @Bean
