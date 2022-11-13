@@ -46,9 +46,9 @@ dependencies {
   implementation("javax.xml.bind:jaxb-api:2.3.1")
 
   //logs
-  implementation("ch.qos.logback:logback-core:1.2.3")
-  implementation("ch.qos.logback:logback-classic:1.2.3")
-  implementation("ch.qos.logback:logback-access:1.2.3")
+  implementation("ch.qos.logback:logback-core:1.2.9")
+  implementation("ch.qos.logback:logback-classic:1.2.9")
+  implementation("ch.qos.logback:logback-access:1.2.9")
   implementation("net.logstash.logback:logstash-logback-encoder:6.2")
 
   // tests
@@ -62,11 +62,11 @@ dependencies {
     exclude(module = "junit-vintage-engine")
     exclude(module = "mockito-core")
   }
-  testImplementation("org.testcontainers:mongodb:1.15.0")
+  testImplementation("org.testcontainers:mongodb:1.17.4")
   testImplementation("com.ninja-squad:springmockk:2.0.2")
-  testImplementation("com.github.tomakehurst:wiremock:2.20.0")
+  testImplementation("com.github.tomakehurst:wiremock:2.27.2")
   testImplementation("io.mockk:mockk:1.9.3")
-  testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
+  testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
   testImplementation("org.junit.jupiter:junit-jupiter-api")
   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }
