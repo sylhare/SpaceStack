@@ -13,7 +13,7 @@ plugins {
 
 group = "amaze.us"
 version = if (project.properties["version"] != "") project.properties["version"].toString() else "local"
-description = "Spacce Stack Application: ${rootProject.name.split("-").map { it.capitalize() }.joinToString { " " }}"
+description = "Space Stack Application: ${rootProject.name.split("-").map { it.capitalize() }.joinToString { " " }}"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
