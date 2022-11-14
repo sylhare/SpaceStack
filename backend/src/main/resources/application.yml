@@ -1,7 +1,8 @@
 server:
   port: 8103
   undertow:
-    worker-threads: 60
+    threads:
+      worker: 60
 
 logging:
   pattern:
